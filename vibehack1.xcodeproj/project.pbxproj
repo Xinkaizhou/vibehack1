@@ -1,0 +1,546 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		6574CD232E71DE4C009BC4A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6574CD0C2E71DE4B009BC4A5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6574CD132E71DE4B009BC4A5;
+			remoteInfo = vibehack1;
+		};
+		6574CD2D2E71DE4C009BC4A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6574CD0C2E71DE4B009BC4A5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6574CD132E71DE4B009BC4A5;
+			remoteInfo = vibehack1;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6574CD142E71DE4B009BC4A5 /* vibehack1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vibehack1.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6574CD222E71DE4C009BC4A5 /* vibehack1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = vibehack1Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6574CD2C2E71DE4C009BC4A5 /* vibehack1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = vibehack1UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		6574CD162E71DE4B009BC4A5 /* vibehack1 */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = vibehack1;
+			sourceTree = "<group>";
+		};
+		6574CD252E71DE4C009BC4A5 /* vibehack1Tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = vibehack1Tests;
+			sourceTree = "<group>";
+		};
+		6574CD2F2E71DE4C009BC4A5 /* vibehack1UITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = vibehack1UITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6574CD112E71DE4B009BC4A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6574CD1F2E71DE4C009BC4A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6574CD292E71DE4C009BC4A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6574CD0B2E71DE4B009BC4A5 = {
+			isa = PBXGroup;
+			children = (
+				6574CD162E71DE4B009BC4A5 /* vibehack1 */,
+				6574CD252E71DE4C009BC4A5 /* vibehack1Tests */,
+				6574CD2F2E71DE4C009BC4A5 /* vibehack1UITests */,
+				6574CD152E71DE4B009BC4A5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6574CD152E71DE4B009BC4A5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6574CD142E71DE4B009BC4A5 /* vibehack1.app */,
+				6574CD222E71DE4C009BC4A5 /* vibehack1Tests.xctest */,
+				6574CD2C2E71DE4C009BC4A5 /* vibehack1UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6574CD132E71DE4B009BC4A5 /* vibehack1 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6574CD362E71DE4C009BC4A5 /* Build configuration list for PBXNativeTarget "vibehack1" */;
+			buildPhases = (
+				6574CD102E71DE4B009BC4A5 /* Sources */,
+				6574CD112E71DE4B009BC4A5 /* Frameworks */,
+				6574CD122E71DE4B009BC4A5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				6574CD162E71DE4B009BC4A5 /* vibehack1 */,
+			);
+			name = vibehack1;
+			packageProductDependencies = (
+			);
+			productName = vibehack1;
+			productReference = 6574CD142E71DE4B009BC4A5 /* vibehack1.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6574CD212E71DE4C009BC4A5 /* vibehack1Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6574CD392E71DE4C009BC4A5 /* Build configuration list for PBXNativeTarget "vibehack1Tests" */;
+			buildPhases = (
+				6574CD1E2E71DE4C009BC4A5 /* Sources */,
+				6574CD1F2E71DE4C009BC4A5 /* Frameworks */,
+				6574CD202E71DE4C009BC4A5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6574CD242E71DE4C009BC4A5 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				6574CD252E71DE4C009BC4A5 /* vibehack1Tests */,
+			);
+			name = vibehack1Tests;
+			packageProductDependencies = (
+			);
+			productName = vibehack1Tests;
+			productReference = 6574CD222E71DE4C009BC4A5 /* vibehack1Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6574CD2B2E71DE4C009BC4A5 /* vibehack1UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6574CD3C2E71DE4C009BC4A5 /* Build configuration list for PBXNativeTarget "vibehack1UITests" */;
+			buildPhases = (
+				6574CD282E71DE4C009BC4A5 /* Sources */,
+				6574CD292E71DE4C009BC4A5 /* Frameworks */,
+				6574CD2A2E71DE4C009BC4A5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6574CD2E2E71DE4C009BC4A5 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				6574CD2F2E71DE4C009BC4A5 /* vibehack1UITests */,
+			);
+			name = vibehack1UITests;
+			packageProductDependencies = (
+			);
+			productName = vibehack1UITests;
+			productReference = 6574CD2C2E71DE4C009BC4A5 /* vibehack1UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6574CD0C2E71DE4B009BC4A5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					6574CD132E71DE4B009BC4A5 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					6574CD212E71DE4C009BC4A5 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 6574CD132E71DE4B009BC4A5;
+					};
+					6574CD2B2E71DE4C009BC4A5 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 6574CD132E71DE4B009BC4A5;
+					};
+				};
+			};
+			buildConfigurationList = 6574CD0F2E71DE4B009BC4A5 /* Build configuration list for PBXProject "vibehack1" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6574CD0B2E71DE4B009BC4A5;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 6574CD152E71DE4B009BC4A5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6574CD132E71DE4B009BC4A5 /* vibehack1 */,
+				6574CD212E71DE4C009BC4A5 /* vibehack1Tests */,
+				6574CD2B2E71DE4C009BC4A5 /* vibehack1UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6574CD122E71DE4B009BC4A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6574CD202E71DE4C009BC4A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6574CD2A2E71DE4C009BC4A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6574CD102E71DE4B009BC4A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6574CD1E2E71DE4C009BC4A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6574CD282E71DE4C009BC4A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6574CD242E71DE4C009BC4A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6574CD132E71DE4B009BC4A5 /* vibehack1 */;
+			targetProxy = 6574CD232E71DE4C009BC4A5 /* PBXContainerItemProxy */;
+		};
+		6574CD2E2E71DE4C009BC4A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6574CD132E71DE4B009BC4A5 /* vibehack1 */;
+			targetProxy = 6574CD2D2E71DE4C009BC4A5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		6574CD342E71DE4C009BC4A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6574CD352E71DE4C009BC4A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		6574CD372E71DE4C009BC4A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = vibehack1/vibehack1.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xinkai.vibehack1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		6574CD382E71DE4C009BC4A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = vibehack1/vibehack1.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xinkai.vibehack1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		6574CD3A2E71DE4C009BC4A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xinkai.vibehack1Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/vibehack1.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/vibehack1";
+			};
+			name = Debug;
+		};
+		6574CD3B2E71DE4C009BC4A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xinkai.vibehack1Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/vibehack1.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/vibehack1";
+			};
+			name = Release;
+		};
+		6574CD3D2E71DE4C009BC4A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xinkai.vibehack1UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = vibehack1;
+			};
+			name = Debug;
+		};
+		6574CD3E2E71DE4C009BC4A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xinkai.vibehack1UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = vibehack1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6574CD0F2E71DE4B009BC4A5 /* Build configuration list for PBXProject "vibehack1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6574CD342E71DE4C009BC4A5 /* Debug */,
+				6574CD352E71DE4C009BC4A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6574CD362E71DE4C009BC4A5 /* Build configuration list for PBXNativeTarget "vibehack1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6574CD372E71DE4C009BC4A5 /* Debug */,
+				6574CD382E71DE4C009BC4A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6574CD392E71DE4C009BC4A5 /* Build configuration list for PBXNativeTarget "vibehack1Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6574CD3A2E71DE4C009BC4A5 /* Debug */,
+				6574CD3B2E71DE4C009BC4A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6574CD3C2E71DE4C009BC4A5 /* Build configuration list for PBXNativeTarget "vibehack1UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6574CD3D2E71DE4C009BC4A5 /* Debug */,
+				6574CD3E2E71DE4C009BC4A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6574CD0C2E71DE4B009BC4A5 /* Project object */;
+}
