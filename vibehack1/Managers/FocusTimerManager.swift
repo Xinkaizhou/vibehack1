@@ -27,12 +27,21 @@ class FocusTimerManager: ObservableObject {
         appState.focusState = .focusing
         appState.currentFocusTime = 0
         
-        // 启动主计时器 - 每秒更新，无限计时
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            self?.updateFocusTime()
+        // 完成新用户引导
+        if appState.isFirstTimeUser && appState.onboardingStep == .targetSelected {
+            appState.completeOnboarding()
         }
         
-        // 启动锦囊检查计时器 - 每5分钟检查
+        // 启动主计时器 - 每秒更新，无限计时
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.updateFocusTime()
+            }
+        }
+        // 确保 Timer 在所有 RunLoop mode 下都能运行，包括窗口隐藏时
+        RunLoop.main.add(timer!, forMode: .common)
+        
+        // 启动福报奖励检查计时器 - 每5分钟检查
         startRewardCheckTimer()
     }
     
@@ -53,8 +62,12 @@ class FocusTimerManager: ObservableObject {
         
         // 重新启动计时器
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            self?.updateFocusTime()
+            DispatchQueue.main.async {
+                self?.updateFocusTime()
+            }
         }
+        // 确保 Timer 在所有 RunLoop mode 下都能运行
+        RunLoop.main.add(timer!, forMode: .common)
         
         startRewardCheckTimer()
     }
@@ -65,8 +78,11 @@ class FocusTimerManager: ObservableObject {
         rewardCheckTimer?.invalidate()
         rewardCheckTimer = nil
         
-        // 专注结束时100%掉落锦囊
+        // 祈福结束时100%掉落福报奖励
         dropReward(guaranteed: true)
+        
+        // 增加今日祈福次数统计
+        appState.todayIncenseCount += 1
         
         // 重置状态
         appState.focusState = .idle
@@ -75,6 +91,9 @@ class FocusTimerManager: ObservableObject {
         
         // 清理祈福区域
         appState.shrineOccupiedTarget = nil
+        
+        // 重置背景为首页
+        appState.updateBackgroundForTarget(nil)
     }
     
     private func updateFocusTime() {
@@ -83,14 +102,18 @@ class FocusTimerManager: ObservableObject {
     }
     
     private func startRewardCheckTimer() {
-        // 每5分钟检查一次锦囊掉落
+        // 每5分钟检查一次福报奖励掉落
         rewardCheckTimer = Timer.scheduledTimer(withTimeInterval: 300, repeats: true) { [weak self] _ in
             self?.checkRewardDrop()
+        }
+        // 确保奖励计时器也能在所有 RunLoop mode 下运行
+        if let rewardTimer = rewardCheckTimer {
+            RunLoop.main.add(rewardTimer, forMode: .common)
         }
     }
     
     private func checkRewardDrop() {
-        // 30%概率掉落锦囊
+        // 30%概率掉落福报奖励
         if Double.random(in: 0...1) < 0.3 {
             dropReward(guaranteed: false)
         }
@@ -134,9 +157,9 @@ class FocusTimerManager: ObservableObject {
         let minutes = totalMinutes % 60
         
         if hours > 0 {
-            return "\(hours)h\(minutes)m"
+            return "\(hours)小时\(minutes)分钟"
         } else {
-            return "\(minutes)m"
+            return "\(minutes)分钟"
         }
     }
 }

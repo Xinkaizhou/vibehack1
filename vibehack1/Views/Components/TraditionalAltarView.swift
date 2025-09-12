@@ -15,7 +15,7 @@ struct TraditionalAltarView: View {
     var body: some View {
         ZStack {
             // 背景图片
-            Image("neon_altar_background")
+            Image(appState.currentBackgroundImage)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -29,7 +29,7 @@ struct TraditionalAltarView: View {
                     CentralAltarArea()
                     Spacer()
                 }
-                .frame(height: 180)
+                .frame(height: 400)
                 
                 // 中部分：空间分隔 - 减少间距
                 Spacer()
@@ -181,25 +181,42 @@ struct TraditionalCandleView: View {
             // 蜡烛主体
             Button(action: handleCandleClick) {
                 VStack(spacing: 0) {
-                    // 蜡烛芯 - 改为白色以提高可见度
+                    // 蜡烛芯 - 更白更明显
                     Rectangle()
                         .fill(Color.white)
-                        .frame(width: 2, height: isLit ? 6 : 8)
+                        .frame(width: 3, height: isLit ? 8 : 10)
                     
-                    // 蜡烛本体 - 使用更明亮的米色
-                    RoundedRectangle(cornerRadius: 2)
+                    // 蜡烛本体 - 更白更粗更长
+                    RoundedRectangle(cornerRadius: 3)
                         .fill(
                             LinearGradient(
                                 colors: [
-                                    Color(.sRGB, red: 0.98, green: 0.95, blue: 0.88),
-                                    Color(.sRGB, red: 0.95, green: 0.92, blue: 0.85),
-                                    Color(.sRGB, red: 0.92, green: 0.89, blue: 0.82)
+                                    Color.white,
+                                    Color(.sRGB, red: 0.98, green: 0.98, blue: 0.96),
+                                    Color(.sRGB, red: 0.96, green: 0.96, blue: 0.94),
+                                    Color(.sRGB, red: 0.94, green: 0.94, blue: 0.92)
                                 ],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
                         )
-                        .frame(width: 16, height: 60)
+                        .overlay(
+                            // 添加高光效果让蜡烛更有立体感
+                            RoundedRectangle(cornerRadius: 3)
+                                .fill(
+                                    LinearGradient(
+                                        colors: [
+                                            Color.white.opacity(0.6),
+                                            Color.clear
+                                        ],
+                                        startPoint: .leading,
+                                        endPoint: .trailing
+                                    )
+                                )
+                                .frame(width: 4)
+                                .offset(x: -6)
+                        )
+                        .frame(width: 24, height: 85)
                         // 移除蜡泪效果
                         // .overlay(
                         //     // 蜡泪效果
@@ -225,10 +242,10 @@ struct TraditionalCandleView: View {
     
     private func handleCandleClick() {
         if appState.focusState == .focusing {
-            // 熄灭蜡烛，结束专注
+            // 熄灭蜡烛，结束祈福
             timerManager.endFocus()
         } else if canLight {
-            // 点燃蜡烛，开始专注
+            // 点燃蜡烛，开始祈福
             timerManager.startFocus()
             // 累计上香次数
             appState.todayIncenseCount += 1
@@ -296,69 +313,81 @@ struct CandleFlameView: View {
 struct CentralAltarArea: View {
     @EnvironmentObject var appState: AppState
     @State private var showingSelection = false
+    @State private var borderPulse: CGFloat = 1.0
+    @State private var borderOpacity: Double = 0.6
+    @State private var tapScale: CGFloat = 1.0
+    @State private var isPressed: Bool = false
     
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 8) { // 减少spacing让元素更紧凑
+            // 提示文字
+            if appState.shrineOccupiedTarget == nil {
+                Text("请选择祈福对象")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(.white.opacity(0.8))
+                    .padding(.bottom, 4)
+            }
+            
             // 祈福对象展示区域
-            Button(action: {
-                showingSelection = true
-            }) {
-                ZStack {
-                    // 神龛背景
+            ZStack {
+                // 根据是否选择显示不同的边框
+                if appState.shrineOccupiedTarget == nil {
+                    // 未选择时显示动画虚线边框
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(
-                            LinearGradient(
-                                colors: [
-                                    Color(.sRGB, red: 0.2, green: 0.15, blue: 0.1),
-                                    Color(.sRGB, red: 0.15, green: 0.1, blue: 0.08),
-                                    Color.black.opacity(0.8)
-                                ],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
+                        .fill(Color.clear)
+                        .stroke(
+                            Color.white.opacity(borderOpacity),
+                            style: StrokeStyle(lineWidth: 2, dash: [8, 4])
                         )
-                        .frame(width: 100, height: 80)
-                    
-                    // 祈福对象或提示
-                    if let target = appState.shrineOccupiedTarget {
-                        VStack(spacing: 4) {
-                            Image(systemName: target.icon)
-                                .font(.system(size: 24))
-                                .foregroundColor(.yellow)
-                                .shadow(color: .yellow.opacity(0.5), radius: 4)
-                            
-                            Text(target.name)
-                                .font(.caption2)
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
-                        }
-                    } else {
-                        VStack(spacing: 4) {
-                            Image(systemName: "hand.tap")
-                                .font(.title3)
-                                .foregroundColor(.gray)
-                            
-                            Text("选择祈福对象")
-                                .font(.caption2)
-                                .foregroundColor(.gray)
-                        }
-                    }
+                        .frame(width: 120, height: 100)
+                        .scaleEffect(borderPulse)
+                        .animation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true), value: borderPulse)
+                        .animation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true), value: borderOpacity)
+                }
+                
+                // 祈福对象或提示图标
+                if let target = appState.shrineOccupiedTarget {
+                    // 显示应用图标 - 3倍放大，无边框
+                    Image(target.icon)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: 640, maxHeight: 640) // 从320放大到640 (再大两倍)
+                        .clipShape(RoundedRectangle(cornerRadius: 80)) // 圆角也相应放大
+                        .shadow(color: .yellow.opacity(0.5), radius: 16) // 阴影也放大
+                } else {
+                    // 未选择时的提示图标
+                    Image(systemName: "hand.tap")
+                        .font(.system(size: 36))
+                        .foregroundColor(.white.opacity(0.4))
                 }
             }
-            .buttonStyle(.plain)
-            
-            // 祝福语
-            if let target = appState.shrineOccupiedTarget {
-                Text(target.blessing)
-                    .font(.caption2)
-                    .foregroundColor(.white.opacity(0.8))
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: 120)
-                    .lineLimit(2)
+            .frame(minWidth: 140, minHeight: 120) // 扩大最小点击区域
+        }
+        .contentShape(Rectangle()) // 确保整个VStack区域都可以点击
+        .scaleEffect(tapScale)
+        .onTapGesture {
+            showingSelection = true
+        }
+        .onLongPressGesture(minimumDuration: 0.0, maximumDistance: .infinity, pressing: { pressing in
+            withAnimation(.easeInOut(duration: 0.1)) {
+                tapScale = pressing ? 0.95 : 1.0
+                isPressed = pressing
+            }
+        }, perform: {})
+        .offset(y: -20) // 整体向上移动20像素
+        .padding(.horizontal, 20) // 添加水平内边距扩大点击区域
+        .padding(.vertical, 10) // 添加垂直内边距扩大点击区域
+        .onAppear {
+            // 启动虚线边框动画
+            withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
+                borderPulse = 1.05
+            }
+            withAnimation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true)) {
+                borderOpacity = 0.9
             }
         }
         .sheet(isPresented: $showingSelection) {
-            PrayTargetSelectionSheet()
+            StandardSelectionSheet()
         }
     }
 }

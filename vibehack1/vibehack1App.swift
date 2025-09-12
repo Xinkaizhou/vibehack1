@@ -19,11 +19,11 @@ struct vibehack1App: App {
                 MainView()
                     .environmentObject(appState)
                     .environmentObject(timerManager)
-                    .frame(width: 650, height: 600)
+                    .frame(width: 650, height: 850)
             } else {
                 // Loading view while initializing
                 ProgressView("初始化中...")
-                    .frame(width: 650, height: 600)
+                    .frame(width: 650, height: 850)
                     .onAppear {
                         initializeManagers()
                     }

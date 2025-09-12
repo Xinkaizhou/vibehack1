@@ -37,9 +37,9 @@ struct TimerDisplayView: View {
         case .idle:
             return ""
         case .focusing:
-            return "已专注 \(formatTimeForStatus())"
+            return "已祈福 \(formatTimeForStatus())"
         case .paused:
-            return "暂停中 - 已专注 \(formatTimeForStatus())"
+            return "暂停祈福 - 已祈福 \(formatTimeForStatus())"
         }
     }
     
@@ -165,13 +165,13 @@ struct RewardAreaView: View {
                     .foregroundColor(.orange)
                 
                 if appState.unreadRewards.isEmpty {
-                    Text("暂无锦囊")
+                    Text("暂无福报奖励")
                         .foregroundColor(.secondary)
                 } else {
                     VStack(alignment: .leading) {
-                        Text("🎁 锦囊区域")
+                        Text("🎁 福报奖励区域")
                             .foregroundColor(.primary)
-                        Text("点击查看 \(appState.unreadRewards.count) 个新锦囊")
+                        Text("点击查看 \(appState.unreadRewards.count) 个新福报奖励")
                             .font(.caption)
                             .foregroundColor(.orange)
                     }

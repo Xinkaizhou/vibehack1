@@ -14,109 +14,45 @@ struct MainGameView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            // 顶部信息栏
-            HStack(spacing: 24) {
-                // 点亮计时
-                VStack(spacing: 6) {
-                    HStack(spacing: 6) {
-                        Image(systemName: "flame.fill")
-                            .foregroundColor(.orange)
-                            .font(.system(size: 16))
-                        Text("蜡烛计时")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.black)
-                    }
-                    
-                    Text(timerManager.formattedTime)
-                        .font(.system(size: 24, weight: .bold, design: .monospaced))
-                        .foregroundColor(.black)
+            // 顶部信息栏 - 根据引导状态切换
+            Group {
+                if appState.isFirstTimeUser && appState.onboardingStep != .completed {
+                    OnboardingInfoBar()
+                } else {
+                    NormalInfoBar(timerManager: timerManager, onlineCount: onlineCount)
                 }
-                .frame(minWidth: 120)
-                
-                Divider()
-                    .frame(height: 60)
-                
-                // 在线人数
-                VStack(spacing: 6) {
-                    HStack(spacing: 6) {
-                        Image(systemName: "person.2.fill")
-                            .foregroundColor(.blue)
-                            .font(.system(size: 16))
-                        Text("在线人数")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.black)
-                    }
-                    
-                    Text("1,234 人")
-                        .font(.system(size: 22, weight: .semibold))
-                        .foregroundColor(.black)
-                }
-                .frame(minWidth: 120)
-                
-                Divider()
-                    .frame(height: 60)
-                
-                // 福报池
-                VStack(spacing: 6) {
-                    HStack(spacing: 6) {
-                        Image(systemName: "gift.fill")
-                            .foregroundColor(.pink)
-                            .font(.system(size: 16))
-                        Text("福报奖励")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.black)
-                    }
-                    
-                    Text("暂无福报")
-                        .font(.system(size: 14))
-                        .foregroundColor(.black.opacity(0.6))
-                }
-                .frame(minWidth: 120)
-                
-                Spacer()
             }
-            .padding(.horizontal, 20)
-            .frame(height: 100)
-            .background(
-                LinearGradient(
-                    colors: [
-                        Color(.sRGB, red: 0.95, green: 0.93, blue: 0.89),
-                        Color(.sRGB, red: 0.92, green: 0.90, blue: 0.86),
-                        Color(.sRGB, red: 0.90, green: 0.88, blue: 0.84)
-                    ],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-            )
-            .overlay(
-                Rectangle()
-                    .fill(Color.black.opacity(0.1))
-                    .frame(height: 1),
-                alignment: .bottom
-            )
+            .transition(.move(edge: .top).combined(with: .opacity))
+            .animation(.easeInOut(duration: 0.6), value: appState.isFirstTimeUser)
+            .animation(.easeInOut(duration: 0.6), value: appState.onboardingStep)
             
             // 下方祭坛功能区域 - 保留所有功能，只移除背景图片
             ZStack {
-                // 简单背景色替代背景图片
-                Rectangle()
-                    .fill(Color(.sRGB, red: 0.1, green: 0.1, blue: 0.15))
+                // 祭坛背景图片
+                Image(appState.currentBackgroundImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .clipped()
+                    .transition(.opacity.combined(with: .scale(scale: 1.05)))
+                    .animation(.easeInOut(duration: 0.6), value: appState.currentBackgroundImage)
                 
                 // 祭坛功能内容
                 VStack(spacing: 0) {
                     // 上部分：祈福对象区域
                     VStack {
                         Spacer()
-                            .frame(height: 30)
+                            .frame(height: 80)  // 增加顶部间距，让祈福对象更靠下
                         CentralAltarArea()
                         Spacer()
+                            .frame(height: 20)  // 减少底部间距
                     }
                     .frame(height: 200)
                     .frame(maxWidth: .infinity)
                     
                     // 中部分：空间分隔
                     Spacer()
-                        .frame(height: 60)
+                        .frame(height: 15)  // 再减少5px，让蜡烛更高
                     
                     // 下部分：蜡烛区域
                     VStack {
@@ -128,7 +64,7 @@ struct MainGameView: View {
                         Spacer()
                             .frame(height: 40)
                     }
-                    .frame(height: 120)
+                    .frame(height: 160)  // 增加蜡烛区域高度
                     .frame(maxWidth: .infinity)
                 }
                 .frame(maxWidth: .infinity)
@@ -151,8 +87,7 @@ struct MainGameView: View {
     }
     
     private var todayFocusCount: Int {
-        // TODO: 实际统计今日专注次数
-        return 3
+        return appState.todayIncenseCount
     }
 }
 
@@ -243,7 +178,7 @@ struct TopInfoBar: View {
                     Button(action: {
                         appState.currentView = .rewardDetail
                     }) {
-                        Text("锦囊 x\(appState.unreadRewards.count)")
+                        Text("福报奖励 x\(appState.unreadRewards.count)")
                             .font(.subheadline)
                             .fontWeight(.semibold)
                             .foregroundColor(.pink)
@@ -277,8 +212,7 @@ struct TopInfoBar: View {
     }
     
     private var todayFocusCount: Int {
-        // TODO: 实际统计今日专注次数
-        return 3
+        return appState.todayIncenseCount
     }
 }
 
@@ -369,7 +303,7 @@ struct RightInfoPanel: View {
                     Button(action: {
                         appState.currentView = .rewardDetail
                     }) {
-                        Text("锦囊 x\(appState.unreadRewards.count)")
+                        Text("福报奖励 x\(appState.unreadRewards.count)")
                             .font(.subheadline)
                             .fontWeight(.semibold)
                             .foregroundColor(.pink)
@@ -403,8 +337,7 @@ struct RightInfoPanel: View {
     }
     
     private var todayFocusCount: Int {
-        // TODO: 实际统计今日专注次数
-        return 3
+        return appState.todayIncenseCount
     }
 }
 
@@ -517,11 +450,6 @@ struct IncenseBurnerView: View {
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundColor(.primary)
-                    
-                    Text(target.blessing)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
                 }
             }
         }

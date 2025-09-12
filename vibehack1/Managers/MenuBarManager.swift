@@ -87,7 +87,7 @@ class MenuBarManager: NSObject, ObservableObject {
     private func getStatusTitle() -> (String, Bool) {
         switch appState.focusState {
         case .idle:
-            return ("🏺", false)
+            return ("🕯️", false)
         case .focusing:
             let timeText = timerManager.menuBarFormattedTime
             return ("🔥 \(timeText)", false)
@@ -127,7 +127,7 @@ class MenuBarManager: NSObject, ObservableObject {
             menu.addItem(NSMenuItem.separator())
             
         case .focusing:
-            let focusInfo = NSMenuItem(title: "专注中 - \(timerManager.menuBarFormattedTime)", action: nil, keyEquivalent: "")
+            let focusInfo = NSMenuItem(title: "祈福中 - \(timerManager.menuBarFormattedTime)", action: nil, keyEquivalent: "")
             focusInfo.isEnabled = false
             menu.addItem(focusInfo)
             
@@ -138,8 +138,8 @@ class MenuBarManager: NSObject, ObservableObject {
             }
             
             menu.addItem(NSMenuItem.separator())
-            menu.addItem(NSMenuItem(title: "暂停专注", action: #selector(pauseFocus), keyEquivalent: ""))
-            menu.addItem(NSMenuItem(title: "结束专注", action: #selector(endFocus), keyEquivalent: ""))
+            menu.addItem(NSMenuItem(title: "暂停祈福", action: #selector(pauseFocus), keyEquivalent: ""))
+            menu.addItem(NSMenuItem(title: "结束祈福", action: #selector(endFocus), keyEquivalent: ""))
             menu.addItem(NSMenuItem.separator())
             
         case .paused:
@@ -147,14 +147,14 @@ class MenuBarManager: NSObject, ObservableObject {
             pauseInfo.isEnabled = false
             menu.addItem(pauseInfo)
             menu.addItem(NSMenuItem.separator())
-            menu.addItem(NSMenuItem(title: "继续专注", action: #selector(resumeFocus), keyEquivalent: ""))
-            menu.addItem(NSMenuItem(title: "结束专注", action: #selector(endFocus), keyEquivalent: ""))
+            menu.addItem(NSMenuItem(title: "继续祈福", action: #selector(resumeFocus), keyEquivalent: ""))
+            menu.addItem(NSMenuItem(title: "结束祈福", action: #selector(endFocus), keyEquivalent: ""))
             menu.addItem(NSMenuItem.separator())
         }
         
-        // 锦囊信息
+        // 福报奖励信息
         if !appState.unreadRewards.isEmpty {
-            let rewardItem = NSMenuItem(title: "🎁 \(appState.unreadRewards.count) 个新锦囊", action: #selector(showRewards), keyEquivalent: "")
+            let rewardItem = NSMenuItem(title: "🎁 \(appState.unreadRewards.count) 个新福报奖励", action: #selector(showRewards), keyEquivalent: "")
             menu.addItem(rewardItem)
             menu.addItem(NSMenuItem.separator())
         }

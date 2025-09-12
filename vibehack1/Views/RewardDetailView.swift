@@ -15,7 +15,7 @@ struct RewardDetailView: View {
         VStack(spacing: 30) {
             // 标题区域
             VStack(spacing: 16) {
-                Text("✨ 锦囊开启 ✨")
+                Text("✨ 福报奖励开启 ✨")
                     .font(.title2)
                     .fontWeight(.medium)
                     .foregroundColor(.primary)
@@ -44,7 +44,7 @@ struct RewardDetailView: View {
         .padding()
         .background(Color(.windowBackgroundColor))
         .onAppear {
-            // 标记当前锦囊为已读
+            // 标记当前福报奖励为已读
             markCurrentRewardAsRead()
         }
     }
@@ -63,11 +63,11 @@ struct EmptyRewardView: View {
                 .font(.system(size: 60))
                 .foregroundColor(.gray)
             
-            Text("暂无新锦囊")
+            Text("暂无新福报奖励")
                 .font(.title3)
                 .foregroundColor(.secondary)
             
-            Text("专注时会有锦囊随机掉落，\n完成专注后必定获得锦囊奖励")
+            Text("祈福时会有福报奖励随机掉落，\n完成祈福后必定获得福报奖励")
                 .font(.caption)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
@@ -102,7 +102,7 @@ struct RewardContentView: View {
             
             Divider()
             
-            // 锦囊内容
+            // 福报奖励内容
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     Text(reward.content)
@@ -156,7 +156,7 @@ struct RewardContentView: View {
         case .achievement:
             return "成就奖励"
         case .blessing:
-            return "祝福锦囊"
+            return "祝福福报"
         }
     }
     
@@ -209,7 +209,7 @@ struct ActionButtonsView: View {
     }
     
     private func cleanupAndReturn() {
-        // 清理已读的锦囊
+        // 清理已读的福报奖励
         appState.unreadRewards.removeAll { $0.isRead }
         
         // 重置索引
@@ -224,7 +224,7 @@ struct ActionButtonsView: View {
     let appState = AppState()
     let timerManager = FocusTimerManager(appState: appState)
     
-    // 添加一些测试锦囊
+    // 添加一些测试福报奖励
     DispatchQueue.main.async {
         appState.unreadRewards = [
             Reward(type: .programmingTip, title: "编程小贴士", content: "使用 Cursor 时，尝试编写更详细的注释，AI 会根据注释生成更准确的代码建议。保持注释的简洁明了，描述代码的意图而不是实现细节。", rarity: .common),

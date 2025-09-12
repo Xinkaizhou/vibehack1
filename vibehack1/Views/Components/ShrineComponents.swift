@@ -73,16 +73,8 @@ struct ShrineDisplayView: View {
                 }
             }
             .buttonStyle(.plain)
-            .frame(height: 130)
+            .frame(height: 280)
             
-            // 祝福语显示
-            if let target = appState.shrineOccupiedTarget {
-                Text(target.blessing)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-            }
         }
         .sheet(isPresented: $showingPrayTargetSelection) {
             PrayTargetSelectionSheet()
@@ -108,20 +100,21 @@ struct OccupiedShrineView: View {
     let target: PrayTarget
     
     var body: some View {
-        VStack(spacing: 8) {
-            Image(systemName: target.icon)
-                .font(.system(size: 40))
-                .foregroundColor(.primary)
+        VStack(spacing: 12) {
+            Image(target.icon)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 200, height: 200)  // 比原来大5倍
                 .background(
                     Circle()
                         .fill(Color.white)
-                        .frame(width: 60, height: 60)
-                        .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
+                        .frame(width: 220, height: 220)
+                        .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
                 )
             
             Text(target.name)
-                .font(.headline)
-                .fontWeight(.medium)
+                .font(.title2)
+                .fontWeight(.semibold)
                 .foregroundColor(.primary)
         }
         .scaleEffect(1.1)
@@ -131,7 +124,7 @@ struct OccupiedShrineView: View {
 
 
 
-// MARK: - 锦囊列表区域
+// MARK: - 福报奖励列表区域
 struct RewardListView: View {
     @EnvironmentObject var appState: AppState
     
@@ -141,7 +134,7 @@ struct RewardListView: View {
                 Image(systemName: "gift.fill")
                     .foregroundColor(.pink)
                     .font(.caption)
-                Text("锦囊")
+                Text("福报奖励")
                     .font(.headline)
                     .fontWeight(.medium)
                     .foregroundColor(.primary)
@@ -188,7 +181,7 @@ struct EmptyRewardListView: View {
                 .font(.title3)
                 .foregroundColor(.gray.opacity(0.5))
             
-            Text("暂无锦囊")
+            Text("暂无福报奖励")
                 .font(.caption2)
                 .foregroundColor(.secondary)
         }
@@ -211,13 +204,13 @@ struct RewardListItem: View {
     
     var body: some View {
         HStack(spacing: 8) {
-            // 锦囊图标
+            // 福报奖励图标
             Image(systemName: rewardIcon)
                 .font(.caption)
                 .foregroundColor(reward.rarity.color)
                 .frame(width: 16)
             
-            // 锦囊标题
+            // 福报奖励标题
             Text(reward.title)
                 .font(.caption2)
                 .foregroundColor(.primary)
@@ -225,7 +218,7 @@ struct RewardListItem: View {
             
             Spacer()
             
-            // 新锦囊标识
+            // 新福报奖励标识
             if !reward.isRead {
                 Circle()
                     .fill(Color.red)

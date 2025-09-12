@@ -23,9 +23,41 @@ class AppState: ObservableObject {
     @Published var shrineOccupiedTarget: PrayTarget?
     @Published var prayTargetPage: Int = 0
     
+    // 背景图片相关状态
+    @Published var currentBackgroundImage: String = "homepage_background"
+    private let candidateBackgrounds = ["background_2", "background_3", "background_4"]
+    
+    // 新用户引导相关状态
+    @Published var isFirstTimeUser: Bool = true
+    @Published var onboardingStep: OnboardingStep = .welcome
+    
+    init() {
+        // 确保初始化时背景图片已经设置
+        currentBackgroundImage = "homepage_background"
+        
+        #if DEBUG
+        // Debug模式下每次启动都重置为新手引导
+        UserDefaults.standard.removeObject(forKey: "HasCompletedOnboarding")
+        isFirstTimeUser = true
+        onboardingStep = .welcome
+        #else
+        // 生产模式下检查是否为首次使用
+        isFirstTimeUser = !UserDefaults.standard.bool(forKey: "HasCompletedOnboarding")
+        if isFirstTimeUser {
+            onboardingStep = .welcome
+        }
+        #endif
+    }
+    
     enum ViewType {
         case main
         case rewardDetail
+    }
+    
+    enum OnboardingStep {
+        case welcome        // 首次进入："码祖庙 - 你的 vibecoding 守护神，两步即可祈福"
+        case targetSelected // 选择祈福对象后："点击任意蜡烛，开始或结束祈福"
+        case completed      // 开始专注后：显示正常信息栏
     }
     
     enum FocusState {
@@ -35,36 +67,80 @@ class AppState: ObservableObject {
         
         var displayText: String {
             switch self {
-            case .idle: return "准备专注"
-            case .focusing: return "专注中"
+            case .idle: return "准备祈福"
+            case .focusing: return "祈福中"
             case .paused: return "已暂停"
             }
         }
     }
+    
+    // MARK: - 背景切换方法
+    func switchToRandomBackground() {
+        let availableBackgrounds = candidateBackgrounds.filter { $0 != currentBackgroundImage }
+        if let randomBackground = availableBackgrounds.randomElement() {
+            currentBackgroundImage = randomBackground
+        } else if let anyBackground = candidateBackgrounds.randomElement() {
+            currentBackgroundImage = anyBackground
+        }
+    }
+    
+    func resetToHomepageBackground() {
+        currentBackgroundImage = "homepage_background"
+    }
+    
+    func updateBackgroundForTarget(_ target: PrayTarget?) {
+        if let target = target {
+            // 有选择对象时，切换到随机背景
+            switchToRandomBackground()
+        } else {
+            // 无选择对象时，重置为首页背景
+            resetToHomepageBackground()
+        }
+    }
+    
+    // MARK: - 新用户引导方法
+    func advanceOnboardingStep() {
+        guard isFirstTimeUser else { return }
+        
+        switch onboardingStep {
+        case .welcome:
+            onboardingStep = .targetSelected
+        case .targetSelected:
+            completeOnboarding()
+        case .completed:
+            break
+        }
+    }
+    
+    func completeOnboarding() {
+        onboardingStep = .completed
+        isFirstTimeUser = false
+        UserDefaults.standard.set(true, forKey: "HasCompletedOnboarding")
+    }
 }
 
-struct PrayTarget: Identifiable {
+struct PrayTarget: Identifiable, Equatable {
     let id: String
     let name: String
     let icon: String
-    let blessing: String
     let category: Category
     
-    enum Category {
+    enum Category: Equatable {
         case app
         case person
         case custom
     }
     
     static let presetTargets: [PrayTarget] = [
-        PrayTarget(id: "cursor", name: "Cursor", icon: "terminal.fill", blessing: "愿代码无Bug，AI助力高效编程", category: .app),
-        PrayTarget(id: "claude", name: "Claude Code", icon: "brain.filled.head.profile", blessing: "愿AI陪伴，思路清晰如流水", category: .app),
-        PrayTarget(id: "vscode", name: "VS Code", icon: "chevron.left.forwardslash.chevron.right", blessing: "愿编辑器顺手，开发如有神助", category: .app),
-        PrayTarget(id: "github", name: "GitHub", icon: "externaldrive.connected.to.line.below.fill", blessing: "愿代码提交顺利，协作无阻碍", category: .app),
-        PrayTarget(id: "xcode", name: "Xcode", icon: "hammer.fill", blessing: "愿构建成功，应用发布无忧", category: .app),
-        PrayTarget(id: "swift", name: "Swift", icon: "swift", blessing: "愿Swift代码优雅，性能卓越", category: .app),
-        PrayTarget(id: "python", name: "Python", icon: "diamond.fill", blessing: "愿Python脚本高效，数据清晰", category: .app),
-        PrayTarget(id: "docker", name: "Docker", icon: "shippingbox.fill", blessing: "愿容器运行稳定，部署无忧", category: .app)
+        PrayTarget(id: "lovable", name: "Lovable", icon: "Lovable_icon", category: .app),
+        PrayTarget(id: "cursor", name: "Cursor", icon: "Cursor_icon", category: .app),
+        PrayTarget(id: "trae", name: "Trae", icon: "Trae_icon", category: .app),
+        PrayTarget(id: "kiro", name: "Kiro", icon: "kiro_icon", category: .app),
+        PrayTarget(id: "github_copilot", name: "GitHub Copilot", icon: "GithubCopilot_icon", category: .app),
+        PrayTarget(id: "perplexity", name: "Perplexity", icon: "Perplexity_icon", category: .app),
+        PrayTarget(id: "gemini", name: "Gemini", icon: "Gemini_icon", category: .app),
+        PrayTarget(id: "gpt5", name: "Codex", icon: "GPT5_icon", category: .app),
+        PrayTarget(id: "claude_code", name: "Claude Code", icon: "ClaudeCode_icon", category: .app)
     ]
     
     // 分页支持：每页8个（2行4列）
