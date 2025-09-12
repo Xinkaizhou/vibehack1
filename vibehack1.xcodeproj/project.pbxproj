@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		658923BE2E7470B700657A82 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 658923B82E746F3500657A82 /* Lottie */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		6574CD232E71DE4C009BC4A5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658923BE2E7470B700657A82 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = vibehack1;
 			packageProductDependencies = (
+				658923B82E746F3500657A82 /* Lottie */,
 			);
 			productName = vibehack1;
 			productReference = 6574CD142E71DE4B009BC4A5 /* vibehack1.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = 6574CD0B2E71DE4B009BC4A5;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				658923B72E746F3500657A82 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6574CD152E71DE4B009BC4A5 /* Products */;
 			projectDirPath = "";
@@ -398,6 +407,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "码祖庙";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -423,6 +433,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "码祖庙";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -541,6 +552,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		658923B72E746F3500657A82 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		658923B82E746F3500657A82 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 658923B72E746F3500657A82 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6574CD0C2E71DE4B009BC4A5 /* Project object */;
 }

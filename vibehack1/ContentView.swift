@@ -1,24 +1,35 @@
 //
-//  ContentView.swift
+//  MainView.swift
 //  vibehack1
 //
-//  Created by Daniel on 2025/9/11.
+//  Created by Daniel on 2025/9/12.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct MainView: View {
+    @EnvironmentObject var appState: AppState
+    @EnvironmentObject var timerManager: FocusTimerManager
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            switch appState.currentView {
+            case .main:
+                MainGameView()
+            case .rewardDetail:
+                RewardDetailView()
+            }
         }
-        .padding()
+        .animation(.easeInOut(duration: 0.3), value: appState.currentView)
     }
 }
 
 #Preview {
-    ContentView()
+    let appState = AppState()
+    let timerManager = FocusTimerManager(appState: appState)
+    
+    MainView()
+        .environmentObject(appState)
+        .environmentObject(timerManager)
+        .frame(width: 400, height: 600)
 }
