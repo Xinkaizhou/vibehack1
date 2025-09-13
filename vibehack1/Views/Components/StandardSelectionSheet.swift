@@ -24,7 +24,7 @@ struct StandardSelectionSheet: View {
             // 顶部标题栏
             ZStack {
                 // 标题居中
-                Text("选择祈福对象")
+                Text("选择码神")
                     .font(.title2)
                     .fontWeight(.semibold)
                 

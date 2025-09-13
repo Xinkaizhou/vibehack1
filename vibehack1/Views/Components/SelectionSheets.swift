@@ -15,7 +15,7 @@ struct PrayTargetSelectionSheet: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            Text("选择祈福对象")
+            Text("选择码神")
                 .font(.title2)
                 .fontWeight(.semibold)
             

@@ -65,7 +65,7 @@ struct ShrineDisplayView: View {
                                 .font(.system(size: 32))
                                 .foregroundColor(.brown.opacity(0.6))
                             
-                            Text("点击选择祈福对象")
+                            Text("点击选择码神")
                                 .font(.headline)
                                 .foregroundColor(.brown)
                         }

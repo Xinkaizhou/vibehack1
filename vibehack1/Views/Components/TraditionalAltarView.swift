@@ -322,7 +322,7 @@ struct CentralAltarArea: View {
         VStack(spacing: 8) { // 减少spacing让元素更紧凑
             // 提示文字
             if appState.shrineOccupiedTarget == nil {
-                Text("今天你想保佑谁？")
+                Text("今天你想供奉的码神是？")
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(Color(red: 213/255, green: 177/255, blue: 95/255))
                     .padding(.bottom, 4)
