@@ -101,8 +101,13 @@ struct NormalInfoBar: View {
             .frame(minWidth: 120)
             .contentShape(Rectangle()) // 确保整个区域都可以点击
             .onTapGesture {
-                if appState.unreadRewards.count > 0 {
-                    appState.currentView = .rewardDetail
+                if let firstReward = appState.unreadRewards.first {
+                    // 有新奖励，显示奖励弹窗
+                    appState.currentRewardToShow = firstReward
+                    appState.isShowingRewardSheet = true
+                } else {
+                    // 没有新奖励，进入历史奖励页面
+                    appState.currentView = .rewardHistory
                 }
             }
             .scaleEffect(rewardTapScale)
@@ -111,7 +116,6 @@ struct NormalInfoBar: View {
                     rewardTapScale = isPressing ? 0.95 : 1.0
                 }
             }, perform: {})
-            .disabled(appState.unreadRewards.count == 0)
             .onAppear {
                 lastRewardCount = appState.unreadRewards.count
                 shouldAnimate = appState.unreadRewards.count > 0

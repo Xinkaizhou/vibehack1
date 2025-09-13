@@ -20,9 +20,9 @@ struct OnboardingInfoBar: View {
                         .font(.system(size: 20, weight: .semibold))
                         .foregroundColor(.black)
                     
-                    Text(subtitleText)
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.black.opacity(0.8))
+                   // Text(subtitleText)
+                    //     .font(.system(size: 16, weight: .medium))
+                    //      .foregroundColor(.black.opacity(0.8))
                 }
                 .frame(maxWidth: .infinity)
                 .transition(.move(edge: .top).combined(with: .opacity))
@@ -71,20 +71,20 @@ struct OnboardingInfoBar: View {
         case .welcome:
             return "码祖庙 - 你的 vibecoding 守护神"
         case .targetSelected:
-            return "点击任意蜡烛，开始或结束祈福"
+            return "点击蜡烛，开始或结束祈福"
         case .completed:
             return ""
         }
     }
     
-    private var subtitleText: String {
-        switch appState.onboardingStep {
-        case .welcome:
-            return "两步即可祈福"
-        case .targetSelected, .completed:
-            return ""
-        }
-    }
+    //private var subtitleText: String {
+    //   switch appState.onboardingStep {
+    //   case .welcome:
+    //        return "先选对象，再点燃蜡烛即可祈福"
+    //    case .targetSelected, .completed:
+    //        return ""
+    //    }
+    // }
 }
 
 #Preview {

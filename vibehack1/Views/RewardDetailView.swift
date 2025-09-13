@@ -81,20 +81,20 @@ struct RewardContentView: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            // 奖励类型和稀有度
+            // 奖励类型
             HStack {
                 rewardTypeIcon
                     .font(.title2)
-                    .foregroundColor(reward.rarity.color)
+                    .foregroundColor(.primary)
                 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(reward.title)
                         .font(.headline)
                         .foregroundColor(.primary)
                     
-                    Text("\(rewardTypeName) - \(reward.rarity.displayName)")
+                    Text(rewardTypeName)
                         .font(.caption)
-                        .foregroundColor(reward.rarity.color)
+                        .foregroundColor(.secondary)
                 }
                 
                 Spacer()
@@ -125,7 +125,7 @@ struct RewardContentView: View {
                         .fill(Color(.controlBackgroundColor))
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
-                                .stroke(reward.rarity.color.opacity(0.3), lineWidth: 1)
+                                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
                         )
                 )
             }
@@ -136,27 +136,19 @@ struct RewardContentView: View {
     
     private var rewardTypeIcon: Image {
         switch reward.type {
+        case .physicalReward:
+            return Image(systemName: "gift.fill")
         case .programmingTip:
             return Image(systemName: "lightbulb.fill")
-        case .motivation:
-            return Image(systemName: "heart.fill")
-        case .achievement:
-            return Image(systemName: "star.fill")
-        case .blessing:
-            return Image(systemName: "sparkles")
         }
     }
     
     private var rewardTypeName: String {
         switch reward.type {
+        case .physicalReward:
+            return "实体奖励"
         case .programmingTip:
             return "编程技巧"
-        case .motivation:
-            return "专注激励"
-        case .achievement:
-            return "成就奖励"
-        case .blessing:
-            return "祝福福报"
         }
     }
     
@@ -227,8 +219,8 @@ struct ActionButtonsView: View {
     // 添加一些测试福报奖励
     DispatchQueue.main.async {
         appState.unreadRewards = [
-            Reward(type: .programmingTip, title: "编程小贴士", content: "使用 Cursor 时，尝试编写更详细的注释，AI 会根据注释生成更准确的代码建议。保持注释的简洁明了，描述代码的意图而不是实现细节。", rarity: .common),
-            Reward(type: .motivation, title: "专注祝贺", content: "恭喜完成一段专注时光！持续的专注是通向成功的阶梯，每一分钟的专注都在为你的目标添砖加瓦。", rarity: .rare)
+            Reward(type: .programmingTip, title: "编程小贴士", content: "使用 Cursor 时，尝试编写更详细的注释，AI 会根据注释生成更准确的代码建议。保持注释的简洁明了，描述代码的意图而不是实现细节。", imageName: nil),
+            Reward(type: .physicalReward, title: "精美贴纸套装", content: "恭喜获得限量版编程贴纸套装！包含各种经典编程语言和框架的精美贴纸，让你的设备更加个性化。", imageName: nil)
         ]
     }
     

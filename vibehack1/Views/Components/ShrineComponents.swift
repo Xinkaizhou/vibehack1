@@ -207,7 +207,7 @@ struct RewardListItem: View {
             // 福报奖励图标
             Image(systemName: rewardIcon)
                 .font(.caption)
-                .foregroundColor(reward.rarity.color)
+                .foregroundColor(reward.type == .physicalReward ? .green : .blue)
                 .frame(width: 16)
             
             // 福报奖励标题
@@ -238,14 +238,10 @@ struct RewardListItem: View {
     
     private var rewardIcon: String {
         switch reward.type {
+        case .physicalReward:
+            return "gift.fill"
         case .programmingTip:
             return "lightbulb.fill"
-        case .motivation:
-            return "heart.fill"
-        case .achievement:
-            return "star.fill"
-        case .blessing:
-            return "sparkles"
         }
     }
 }

@@ -18,6 +18,8 @@ struct MainView: View {
                 MainGameView()
             case .rewardDetail:
                 RewardDetailView()
+            case .rewardHistory:
+                RewardHistoryView()
             }
         }
         .animation(.easeInOut(duration: 0.3), value: appState.currentView)

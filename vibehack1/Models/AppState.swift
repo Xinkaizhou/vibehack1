@@ -15,7 +15,11 @@ class AppState: ObservableObject {
     @Published var selectedPrayTarget: PrayTarget?
     @Published var currentFocusTime: TimeInterval = 0
     @Published var unreadRewards: [Reward] = []
+    @Published var allRewards: [Reward] = []  // 所有历史奖励
     @Published var isShowingRewardDetail: Bool = false
+    @Published var isShowingRewardSheet: Bool = false
+    @Published var currentRewardToShow: Reward?
+    @Published var currentRewardIndex: Int = 0
     @Published var todayIncenseCount: Int = 0
     
     // 祈福对象相关状态
@@ -40,6 +44,9 @@ class AppState: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "HasCompletedOnboarding")
         isFirstTimeUser = true
         onboardingStep = .welcome
+        
+        // Debug模式下添加测试奖励数据
+        setupTestRewards()
         #else
         // 生产模式下检查是否为首次使用
         isFirstTimeUser = !UserDefaults.standard.bool(forKey: "HasCompletedOnboarding")
@@ -52,6 +59,7 @@ class AppState: ObservableObject {
     enum ViewType {
         case main
         case rewardDetail
+        case rewardHistory
     }
     
     enum OnboardingStep {
@@ -89,7 +97,7 @@ class AppState: ObservableObject {
     }
     
     func updateBackgroundForTarget(_ target: PrayTarget?) {
-        if let target = target {
+        if target != nil {
             // 有选择对象时，切换到随机背景
             switchToRandomBackground()
         } else {
@@ -97,6 +105,25 @@ class AppState: ObservableObject {
             resetToHomepageBackground()
         }
     }
+    
+    #if DEBUG
+    private func setupTestRewards() {
+        // 添加一些测试用的未读奖励
+        unreadRewards = [
+            Reward(type: .physicalReward, title: "精美编程贴纸套装", content: "恭喜获得限量版编程语言贴纸套装！包含Swift、Python、JavaScript、TypeScript、Rust、Go等12种热门语言的精美贴纸，每个都有独特的设计风格。让你的MacBook、显示器或桌面更加个性化！", imageName: nil),
+            Reward(type: .programmingTip, title: "Cursor AI 编程技巧", content: "使用 Cursor 时，尝试编写更详细的注释，AI 会根据注释生成更准确的代码建议。保持注释简洁明了，描述代码的意图而不是实现细节。好的注释是与AI协作的关键。", imageName: nil),
+            Reward(type: .physicalReward, title: "程序员专属键帽", content: "获得一个专为程序员设计的定制ESC键帽！采用双色注塑工艺，印有经典的 'sudo' 字样。兼容Cherry MX轴体，让你的机械键盘瞬间提升逼格！", imageName: nil)
+        ]
+        
+        // 添加一些历史奖励数据
+        allRewards = [
+            Reward(type: .programmingTip, title: "Git 最佳实践", content: "每次提交都应该是一个完整的逻辑单元，避免把多个不相关的修改放在同一个提交中。写好的提交信息应该清楚地描述'为什么'而不仅仅是'做了什么'。", imageName: nil),
+            Reward(type: .physicalReward, title: "代码咖啡杯", content: "专属程序员马克杯来了！杯身印有经典代码片段和编程梗图，容量350ml，陶瓷材质，微波炉安全。", imageName: nil),
+            Reward(type: .programmingTip, title: "SwiftUI 性能优化", content: "使用 @StateObject 而不是 @ObservableObject 来避免不必要的视图重建。当视图的父组件重新创建时，@StateObject 会保持对象的生命周期。", imageName: nil),
+            Reward(type: .physicalReward, title: "GitHub 纪念T恤", content: "限量版 GitHub 黑色纯棉T恤！正面是简洁的 Octocat 图案，背面印有你的 GitHub 用户名。100%纯棉材质，舒适透气。", imageName: nil)
+        ]
+    }
+    #endif
     
     // MARK: - 新用户引导方法
     func advanceOnboardingStep() {
@@ -163,7 +190,7 @@ struct Reward: Identifiable, Equatable {
     let type: RewardType
     let title: String
     let content: String
-    let rarity: Rarity
+    let imageName: String?
     let timestamp = Date()
     var isRead: Bool = false
     
@@ -172,31 +199,7 @@ struct Reward: Identifiable, Equatable {
     }
     
     enum RewardType {
-        case programmingTip
-        case motivation
-        case achievement
-        case blessing
-    }
-    
-    enum Rarity {
-        case common
-        case rare
-        case epic
-        
-        var displayName: String {
-            switch self {
-            case .common: return "普通"
-            case .rare: return "稀有"
-            case .epic: return "史诗"
-            }
-        }
-        
-        var color: Color {
-            switch self {
-            case .common: return .gray
-            case .rare: return .blue
-            case .epic: return .purple
-            }
-        }
+        case physicalReward  // 实体奖励（图片+文字）
+        case programmingTip  // 编程技巧（纯文字）
     }
 }

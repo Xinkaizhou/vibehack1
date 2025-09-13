@@ -73,6 +73,9 @@ struct MainGameView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .sheet(isPresented: $appState.isShowingRewardSheet) {
+            RewardSheet()
+        }
     }
     
     private var statusText: String {
