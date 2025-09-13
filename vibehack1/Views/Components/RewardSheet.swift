@@ -47,45 +47,82 @@ struct RewardSheet: View {
                 VStack(spacing: 24) {
                     // 奖励标题
                     Text(reward.title)
-                        .font(.title3)
-                        .fontWeight(.medium)
+                        .font(reward.type == .physicalReward ? .title2 : .title3)
+                        .fontWeight(reward.type == .physicalReward ? .bold : .medium)
                         .foregroundColor(.primary)
                         .multilineTextAlignment(.center)
                     
                     if reward.type == .physicalReward {
-                        // 实体奖励：图片展示或占位图
+                        // 实体奖励：优化的图片展示
                         if let imageName = reward.imageName {
-                            Image(imageName)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(maxWidth: 300, maxHeight: 200)
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
-                                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+                            VStack(spacing: 0) {
+                                Image(imageName)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(maxWidth: 320, maxHeight: 240)
+                                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                                    .shadow(color: .black.opacity(0.08), radius: 6, x: 0, y: 3)
+                            }
+                            .padding(.horizontal, 8)
                         } else {
-                            // 占位图 - 不显示内容
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.gray.opacity(0.1))
-                                .frame(maxWidth: 300, maxHeight: 200)
-                                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+                            // 精美的占位图设计
+                            VStack(spacing: 16) {
+                                Image(systemName: "gift.circle.fill")
+                                    .font(.system(size: 48))
+                                    .foregroundStyle(.linearGradient(
+                                        colors: [.blue, .purple],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    ))
+                                
+                                Text("精美奖励图片")
+                                    .font(.system(size: 16, weight: .medium))
+                                    .foregroundColor(.secondary)
+                            }
+                            .frame(maxWidth: 320, maxHeight: 240)
+                            .background(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .fill(.ultraThinMaterial)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 16)
+                                            .stroke(Color.black.opacity(0.06), lineWidth: 1)
+                                    )
+                            )
+                            .shadow(color: .black.opacity(0.08), radius: 6, x: 0, y: 3)
                         }
                     }
                     
-                    // 内容描述
-                    Text(reward.content)
-                        .font(.system(size: 18, weight: .regular))
-                        .foregroundColor(.primary)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(nil)
-                        .lineSpacing(2)
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(.controlBackgroundColor))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .stroke(Color.gray.opacity(0.2), lineWidth: 1)
-                                )
-                        )
+                    // 内容描述 - 优化版本
+                    VStack(alignment: .leading, spacing: 12) {
+                        HStack {
+                            Image(systemName: reward.type == .physicalReward ? "gift.fill" : "lightbulb.fill")
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(reward.type == .physicalReward ? .orange : .blue)
+                            
+                            Text(reward.type == .physicalReward ? "奖励详情" : "编程技巧")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(.secondary)
+                            
+                            Spacer()
+                        }
+                        
+                        Text(reward.content)
+                            .font(.system(size: 17, weight: .regular))
+                            .foregroundColor(.primary)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(nil)
+                            .lineSpacing(3)
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 18)
+                    .background(
+                        RoundedRectangle(cornerRadius: 14)
+                            .fill(.ultraThinMaterial)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 14)
+                                    .stroke(Color.primary.opacity(0.08), lineWidth: 1)
+                            )
+                    )
                     
                 }
                 .padding(.horizontal, 32)
@@ -115,7 +152,7 @@ struct RewardSheet: View {
                     .contentShape(Rectangle())
                 }
                 
-                // 历史奖励按钮
+                // 历史奖励按钮 - 弱化版本
                 Button(action: {
                     claimAllViewedRewards()
                     dismiss()
@@ -123,16 +160,11 @@ struct RewardSheet: View {
                     appState.currentView = .rewardHistory
                 }) {
                     Text("历史奖励")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.secondary)
+                        .font(.system(size: 14, weight: .regular))
+                        .foregroundColor(.secondary.opacity(0.7))
                         .frame(maxWidth: .infinity)
-                        .frame(height: 44)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.secondary.opacity(0.3), lineWidth: 1)
-                                .background(Color.clear)
-                        )
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .frame(height: 36)
+                        .background(Color.clear)
                 }
                 .buttonStyle(.plain)
                 .contentShape(Rectangle())
@@ -209,16 +241,11 @@ struct RewardSheet: View {
                         appState.currentView = .rewardHistory
                     }) {
                         Text("查看历史奖励")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.secondary)
+                            .font(.system(size: 14, weight: .regular))
+                            .foregroundColor(.secondary.opacity(0.7))
                             .frame(maxWidth: .infinity)
-                            .frame(height: 44)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.secondary.opacity(0.3), lineWidth: 1)
-                                    .background(Color.clear)
-                            )
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .frame(height: 36)
+                            .background(Color.clear)
                     }
                     .buttonStyle(.plain)
                     .contentShape(Rectangle())

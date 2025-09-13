@@ -109,20 +109,9 @@ class AppState: ObservableObject {
     
     #if DEBUG
     private func setupTestRewards() {
-        // 添加一些测试用的未读奖励
-        unreadRewards = [
-            Reward(type: .physicalReward, title: "精美编程贴纸套装", content: "恭喜获得限量版编程语言贴纸套装！包含Swift、Python、JavaScript、TypeScript、Rust、Go等12种热门语言的精美贴纸，每个都有独特的设计风格。让你的MacBook、显示器或桌面更加个性化！", imageName: nil),
-            Reward(type: .programmingTip, title: "Cursor AI 编程技巧", content: "使用 Cursor 时，尝试编写更详细的注释，AI 会根据注释生成更准确的代码建议。保持注释简洁明了，描述代码的意图而不是实现细节。好的注释是与AI协作的关键。", imageName: nil),
-            Reward(type: .physicalReward, title: "程序员专属键帽", content: "获得一个专为程序员设计的定制ESC键帽！采用双色注塑工艺，印有经典的 'sudo' 字样。兼容Cherry MX轴体，让你的机械键盘瞬间提升逼格！", imageName: nil)
-        ]
-        
-        // 添加一些历史奖励数据
-        allRewards = [
-            Reward(type: .programmingTip, title: "Git 最佳实践", content: "每次提交都应该是一个完整的逻辑单元，避免把多个不相关的修改放在同一个提交中。写好的提交信息应该清楚地描述'为什么'而不仅仅是'做了什么'。", imageName: nil),
-            Reward(type: .physicalReward, title: "代码咖啡杯", content: "专属程序员马克杯来了！杯身印有经典代码片段和编程梗图，容量350ml，陶瓷材质，微波炉安全。", imageName: nil),
-            Reward(type: .programmingTip, title: "SwiftUI 性能优化", content: "使用 @StateObject 而不是 @ObservableObject 来避免不必要的视图重建。当视图的父组件重新创建时，@StateObject 会保持对象的生命周期。", imageName: nil),
-            Reward(type: .physicalReward, title: "GitHub 纪念T恤", content: "限量版 GitHub 黑色纯棉T恤！正面是简洁的 Octocat 图案，背面印有你的 GitHub 用户名。100%纯棉材质，舒适透气。", imageName: nil)
-        ]
+        // Debug模式下清空所有奖励数据，让用户从零开始
+        unreadRewards = []
+        allRewards = []
     }
     #endif
     
