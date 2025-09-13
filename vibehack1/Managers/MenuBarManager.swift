@@ -152,12 +152,6 @@ class MenuBarManager: NSObject, ObservableObject {
             menu.addItem(NSMenuItem.separator())
         }
         
-        // 福报奖励信息
-        if !appState.unreadRewards.isEmpty {
-            let rewardItem = NSMenuItem(title: "🎁 \(appState.unreadRewards.count) 个新福报奖励", action: #selector(showRewards), keyEquivalent: "")
-            menu.addItem(rewardItem)
-            menu.addItem(NSMenuItem.separator())
-        }
         
         // 通用菜单项
         menu.addItem(NSMenuItem(title: "显示主窗口", action: #selector(showMainWindow), keyEquivalent: ""))
@@ -179,11 +173,6 @@ class MenuBarManager: NSObject, ObservableObject {
         }
     }
     
-    @objc private func showRewards() {
-        showMainWindow()
-        appState.currentView = .rewardDetail
-    }
-    
     @objc private func pauseFocus() {
         timerManager.pauseFocus()
     }
@@ -202,6 +191,8 @@ class MenuBarManager: NSObject, ObservableObject {
     
     deinit {
         blinkTimer?.invalidate()
-        NSStatusBar.system.removeStatusItem(statusItem!)
+        if let statusItem = statusItem {
+            NSStatusBar.system.removeStatusItem(statusItem)
+        }
     }
 }

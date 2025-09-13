@@ -25,6 +25,7 @@ struct RewardSheet: View {
                     HStack {
                         Spacer()
                         Button(action: {
+                            claimAllViewedRewards()
                             dismiss()
                         }) {
                             Image(systemName: "xmark")
@@ -61,20 +62,10 @@ struct RewardSheet: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
                                 .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
                         } else {
-                            // 占位图
+                            // 占位图 - 不显示内容
                             RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.gray.opacity(0.2))
+                                .fill(Color.gray.opacity(0.1))
                                 .frame(maxWidth: 300, maxHeight: 200)
-                                .overlay(
-                                    VStack(spacing: 8) {
-                                        Image(systemName: "gift.fill")
-                                            .font(.system(size: 40))
-                                            .foregroundColor(.gray.opacity(0.6))
-                                        Text("实体奖励")
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray.opacity(0.8))
-                                    }
-                                )
                                 .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
                         }
                     }
@@ -106,7 +97,7 @@ struct RewardSheet: View {
             // 底部按钮区域
             VStack(spacing: 12) {
                 // 如果还有其他未读奖励，显示"下一个"按钮
-                if appState.unreadRewards.count > 1 {
+                if hasNextReward {
                     Button(action: {
                         showNextReward()
                     }) {
@@ -126,6 +117,7 @@ struct RewardSheet: View {
                 
                 // 历史奖励按钮
                 Button(action: {
+                    claimAllViewedRewards()
                     dismiss()
                     // 跳转到历史奖励页面
                     appState.currentView = .rewardHistory
@@ -158,10 +150,87 @@ struct RewardSheet: View {
                 autoClaimCurrentReward()
             }
         } else {
-            // 没有奖励时的占位视图
-            Text("暂无奖励")
-                .foregroundColor(.secondary)
-                .frame(width: 520, height: 640)
+            // 没有奖励时显示空状态
+            VStack(spacing: 0) {
+                // 顶部标题栏
+                ZStack {
+                    // 右上角关闭按钮
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            dismiss()
+                        }) {
+                            Image(systemName: "xmark")
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(.secondary)
+                                .frame(width: 30, height: 30)
+                                .background(Color.black.opacity(0.08))
+                                .clipShape(Circle())
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                .padding(.horizontal, 24)
+                .padding(.vertical, 20)
+                .background(Color(.windowBackgroundColor))
+                
+                // 内容区域
+                VStack(spacing: 24) {
+                    Spacer()
+                    
+                    // 空状态图标和文字
+                    VStack(spacing: 20) {
+                        Image(systemName: "gift")
+                            .font(.system(size: 60))
+                            .foregroundColor(.gray.opacity(0.6))
+                        
+                        VStack(spacing: 8) {
+                            Text("暂无新奖励")
+                                .font(.title3)
+                                .fontWeight(.medium)
+                                .foregroundColor(.primary)
+                            
+                            Text("完成祈福后会获得福报奖励")
+                                .font(.body)
+                                .foregroundColor(.secondary)
+                                .multilineTextAlignment(.center)
+                        }
+                    }
+                    
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity)
+                .background(Color(.windowBackgroundColor))
+                
+                // 底部按钮
+                VStack(spacing: 12) {
+                    Button(action: {
+                        dismiss()
+                        appState.currentView = .rewardHistory
+                    }) {
+                        Text("查看历史奖励")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.secondary)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 44)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.secondary.opacity(0.3), lineWidth: 1)
+                                    .background(Color.clear)
+                            )
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    .buttonStyle(.plain)
+                    .contentShape(Rectangle())
+                }
+                .padding(.horizontal, 32)
+                .padding(.vertical, 24)
+                .background(Color(.windowBackgroundColor))
+            }
+            .frame(width: 520, height: 640)
+            .background(Color(.windowBackgroundColor))
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .shadow(color: .black.opacity(0.15), radius: 20, x: 0, y: 8)
         }
     }
     
@@ -174,6 +243,14 @@ struct RewardSheet: View {
         return formatter.string(from: reward.timestamp)
     }
     
+    // 计算是否还有下一个奖励 - 基于初始计数，不受动态移除影响
+    private var hasNextReward: Bool {
+        // 使用初始的未读奖励数量和当前索引来判断
+        let initialCount = appState.initialUnreadRewardsCount
+        let currentIndex = appState.currentRewardIndex
+        return currentIndex < initialCount - 1
+    }
+    
     private func markCurrentAsRead() {
         guard let reward = reward else { return }
         if let index = appState.unreadRewards.firstIndex(where: { $0.id == reward.id }) {
@@ -183,29 +260,30 @@ struct RewardSheet: View {
     
     private func autoClaimCurrentReward() {
         guard let reward = reward else { return }
-        // 自动将当前奖励添加到历史记录并从未读奖励中移除
+        // 只标记为已读，不立即移除
         if let index = appState.unreadRewards.firstIndex(where: { $0.id == reward.id }) {
-            let claimedReward = appState.unreadRewards[index]
-            appState.allRewards.append(claimedReward)
-            appState.unreadRewards.remove(at: index)
-        }
-        
-        // 如果没有更多奖励了，3秒后自动关闭弹窗
-        if appState.unreadRewards.isEmpty {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                dismiss()
-            }
+            appState.unreadRewards[index].isRead = true
         }
     }
     
+    private func claimAllViewedRewards() {
+        // 将所有已读的奖励移动到历史记录
+        let viewedRewards = appState.unreadRewards.filter { $0.isRead }
+        appState.allRewards.append(contentsOf: viewedRewards)
+        appState.unreadRewards.removeAll { $0.isRead }
+    }
+    
     private func showNextReward() {
-        // 检查是否还有其他未读奖励
-        if !appState.unreadRewards.isEmpty {
-            // 有其他奖励，更新显示的奖励
-            appState.currentRewardToShow = appState.unreadRewards.first
-            appState.currentRewardIndex = 0
+        let currentIndex = appState.currentRewardIndex
+        let nextIndex = currentIndex + 1
+        
+        if nextIndex < appState.unreadRewards.count {
+            // 有下一个奖励，显示它
+            appState.currentRewardToShow = appState.unreadRewards[nextIndex]
+            appState.currentRewardIndex = nextIndex
         } else {
-            // 没有更多奖励，关闭弹窗
+            // 没有更多奖励，处理所有查看过的奖励并关闭弹窗
+            claimAllViewedRewards()
             dismiss()
         }
     }

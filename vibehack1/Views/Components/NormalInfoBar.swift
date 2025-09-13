@@ -197,7 +197,7 @@ struct NormalInfoBar: View {
         let rewardCount = appState.unreadRewards.count
         
         if rewardCount > 0 {
-            return "收到 \(rewardCount) 个新奖励"
+            return "收到 \(rewardCount) 个福报"
         } else {
             switch appState.focusState {
             case .focusing:

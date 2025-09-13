@@ -21,6 +21,7 @@ class AppState: ObservableObject {
     @Published var currentRewardToShow: Reward?
     @Published var currentRewardIndex: Int = 0
     @Published var todayIncenseCount: Int = 0
+    @Published var initialUnreadRewardsCount: Int = 0
     
     // 祈福对象相关状态
     @Published var draggedPrayTarget: PrayTarget?
